@@ -47,6 +47,9 @@ const Lookup: React.FC = () => {
         departPlace={departPlace}
         departDate={departDate}
         departTime={departTime}
+        arrivePlace={arrivePlace}
+        arriveDate={arriveDate}
+        arriveTime={arriveTime}
       ></Results>
     </div>
   );

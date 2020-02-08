@@ -9,20 +9,33 @@ const Results: React.FC<{
   departPlace: Place;
   departDate: Moment | null | undefined;
   departTime: Moment | null | undefined;
-}> = ({ departPlace, departDate, departTime }) => {
-  const [timezone, setTimezone] = useState<TimezoneData>();
+  arrivePlace: Place;
+  arriveDate: Moment | null | undefined;
+  arriveTime: Moment | null | undefined;
+}> = ({
+  departPlace,
+  departDate,
+  departTime,
+  arrivePlace,
+  arriveDate,
+  arriveTime
+}) => {
+  const [departTimezone, setDepartTimezone] = useState<TimezoneData>();
+  const [arriveTimezone, setArriveTimezone] = useState<TimezoneData>();
 
-  useFetchTimezone(departPlace, departDate, departTime, setTimezone);
+  useFetchTimezone(departPlace, departDate, departTime, setDepartTimezone);
+  useFetchTimezone(arrivePlace, arriveDate, arriveTime, setArriveTimezone);
 
   return (
     <Row>
       <Col span={4}></Col>
       <Col span={8}>
         <div>{departPlace?.name}</div>
-        <div>{timezone?.timeZoneName}</div>
+        <div>{departTimezone?.timeZoneName}</div>
       </Col>
       <Col span={8}>
-        <div></div>
+        <div>{arrivePlace?.name}</div>
+        <div>{arriveTimezone?.timeZoneName}</div>
       </Col>
       <Col span={4}></Col>
     </Row>

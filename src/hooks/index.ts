@@ -50,22 +50,22 @@ export const useSearchLocation = (
 };
 
 export const useFetchTimezone = (
-  departPlace: Place,
-  departDate: Moment | null | undefined,
-  departTime: Moment | null | undefined,
+  place: Place,
+  date: Moment | null | undefined,
+  time: Moment | null | undefined,
   setTimezone: Function
 ) => {
   useEffect(() => {
     async function fetch() {
       try {
-        if (departDate && departTime) {
-          const timestamp = departDate
-            .hours(departTime.hours())
-            .minutes(departTime.minutes())
-            .seconds(departTime.second())
+        if (date && time) {
+          const timestamp = date
+            .hours(time.hours())
+            .minutes(time.minutes())
+            .seconds(time.second())
             .unix();
 
-          const timezone = await fetchTimezone(departPlace.id, timestamp);
+          const timezone = await fetchTimezone(place.id, timestamp);
           setTimezone(timezone);
         }
       } catch (e) {
@@ -73,8 +73,8 @@ export const useFetchTimezone = (
       }
     }
 
-    if (departPlace && departDate && departTime) {
+    if (place && date && time) {
       fetch();
     }
-  }, [departDate, departPlace, departTime, setTimezone]);
+  }, [place, time, setTimezone, date]);
 };
