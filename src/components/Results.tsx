@@ -27,7 +27,13 @@ const Results: React.FC<{
   useFetchTimezone(departPlace, departDate, departTime, setDepartTimezone);
   useFetchTimezone(arrivePlace, arriveDate, arriveTime, setArriveTimezone);
 
-  const showTimeline = departPlace && arrivePlace;
+  const showTimeline =
+    departPlace &&
+    arrivePlace &&
+    departDate &&
+    arriveDate &&
+    departTime &&
+    arriveTime;
 
   return (
     <Row>
