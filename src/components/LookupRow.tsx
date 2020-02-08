@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Moment } from "moment";
 
 import { Row, Col, Select, TimePicker } from "antd";
 
-import { SetTime, SetPlace } from "./types";
+import { SetTime, SetPlace, Place } from "../types";
+import { useSearchLocation } from "./hooks";
 
 const { Option } = Select;
 
@@ -15,11 +16,10 @@ const LookupRow: React.FC<{
   setPlace: SetPlace;
   timeFormat: string;
 }> = ({ label, time, setTime, place, setPlace, timeFormat }) => {
-  const places = ["London", "Paris", "Berlin"];
+  const [places, setPlaces] = useState<Place[]>([]);
+  const [searchString, setSearchString] = useState<string>("");
 
-  const handleSearch = (searchString: string) => {
-    console.log(`Searching for ${searchString}`);
-  };
+  useSearchLocation(searchString, setPlaces);
 
   return (
     <Row>
@@ -38,15 +38,18 @@ const LookupRow: React.FC<{
         <Select
           showSearch
           value={place}
-          onSearch={handleSearch}
+          onSearch={str => setSearchString(str)}
           onChange={setPlace}
+          filterOption={false}
           style={{ width: "100%" }}
         >
-          {places.map((option: string, i: number) => (
-            <Option key={i} value={option.toLowerCase()}>
-              {option}
-            </Option>
-          ))}
+          {places.map((place: Place, i: number) => {
+            return (
+              <Option key={i} value={place.id}>
+                {place.name}
+              </Option>
+            );
+          })}
         </Select>
       </Col>
       <Col
