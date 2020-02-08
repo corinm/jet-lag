@@ -1,39 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Row, Col } from "antd";
+import { Moment } from "moment";
 
 import { Place, TimezoneData } from "../types";
-import { fetchTimezone } from "../services/timezones";
+import { useFetchTimezone } from "../hooks";
 
-const Results: React.FC<{ departPlace: Place; arrivePlace: Place }> = ({
-  departPlace,
-  arrivePlace
-}) => {
+const Results: React.FC<{
+  departPlace: Place;
+  departDate: Moment | null | undefined;
+  departTime: Moment | null | undefined;
+}> = ({ departPlace, departDate, departTime }) => {
   const [timezone, setTimezone] = useState<TimezoneData>();
 
-  useEffect(() => {
-    async function fetch() {
-      try {
-        const timezone = await fetchTimezone(departPlace.id);
-        setTimezone(timezone);
-      } catch (e) {
-        console.error(e);
-      }
-    }
-
-    if (departPlace) {
-      fetch();
-    }
-  }, [departPlace]);
+  useFetchTimezone(departPlace, departDate, departTime, setTimezone);
 
   return (
     <Row>
       <Col span={4}></Col>
       <Col span={8}>
-        <div>{departPlace ? departPlace.name : ""}</div>
+        <div>{departPlace?.name}</div>
         <div>{timezone?.timeZoneName}</div>
       </Col>
       <Col span={8}>
-        <div>{arrivePlace ? arrivePlace.name : ""}</div>
+        <div></div>
       </Col>
       <Col span={4}></Col>
     </Row>

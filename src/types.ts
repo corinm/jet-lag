@@ -5,6 +5,9 @@ export interface Place {
   id: string;
 }
 
+export interface SetDate {
+  (time: Moment | null | undefined): void;
+}
 export interface SetTime {
   (time: Moment): void;
 }

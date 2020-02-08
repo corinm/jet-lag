@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import moment from "moment";
+import moment, { Moment } from "moment";
 import { Row, Col } from "antd";
 
 import LookupRow from "./LookupRow";
@@ -9,17 +9,21 @@ const format = "HH:mm";
 
 const Lookup: React.FC = () => {
   const [departPlace, setDepartPlace] = useState();
+  const [departDate, setDepartDate] = useState<Moment | null | undefined>();
   const [departTime, setDepartTime] = useState(moment("00:00", format));
   const [arrivePlace, setArrivePlace] = useState();
+  const [arriveDate, setArriveDate] = useState<Moment | null | undefined>();
   const [arriveTime, setArriveTime] = useState(moment("00:00", format));
 
   return (
     <div>
       <Row>
-        <Col span={6}></Col>
-        <Col span={12}>
+        <Col span={2}></Col>
+        <Col span={20}>
           <LookupRow
             label="Departs"
+            date={departDate}
+            setDate={setDepartDate}
             time={departTime}
             setTime={setDepartTime}
             place={departPlace}
@@ -28,6 +32,8 @@ const Lookup: React.FC = () => {
           />
           <LookupRow
             label="Arrives"
+            date={arriveDate}
+            setDate={setArriveDate}
             time={arriveTime}
             setTime={setArriveTime}
             place={arrivePlace}
@@ -35,9 +41,13 @@ const Lookup: React.FC = () => {
             timeFormat={format}
           />
         </Col>
-        <Col span={6}></Col>
+        <Col span={2}></Col>
       </Row>
-      <Results departPlace={departPlace} arrivePlace={arrivePlace}></Results>
+      <Results
+        departPlace={departPlace}
+        departDate={departDate}
+        departTime={departTime}
+      ></Results>
     </div>
   );
 };
