@@ -29,7 +29,7 @@ const Results: React.FC<{
   useFetchTimezone(arrivePlace, arriveDate, arriveTime, setArriveTimezone);
 
   const anyDataMissing = () => {
-    return (
+    return !(
       departPlace &&
       arrivePlace &&
       departDate &&
