@@ -1,21 +1,23 @@
 import React, { useState } from "react";
 import { Moment } from "moment";
 
-import { Row, Col, Select, TimePicker } from "antd";
+import { Row, Col, Select, DatePicker, TimePicker } from "antd";
 
-import { SetTime, SetPlace, Place } from "../types";
+import { SetDate, SetTime, SetPlace, Place } from "../types";
 import { useSearchLocation } from "../hooks";
 
 const { Option } = Select;
 
 const LookupRow: React.FC<{
   label: string;
+  date: Moment | null | undefined;
+  setDate: SetDate;
   time: Moment;
   setTime: SetTime;
   place: Place;
   setPlace: SetPlace;
   timeFormat: string;
-}> = ({ label, time, setTime, place, setPlace, timeFormat }) => {
+}> = ({ label, date, setDate, time, setTime, place, setPlace, timeFormat }) => {
   const [places, setPlaces] = useState<Place[]>([]);
   const [searchString, setSearchString] = useState<string>("");
 
@@ -28,7 +30,7 @@ const LookupRow: React.FC<{
   return (
     <Row>
       <Col
-        span={4}
+        span={2}
         style={{
           display: "flex",
           justifyContent: "center",
@@ -57,7 +59,25 @@ const LookupRow: React.FC<{
         </Select>
       </Col>
       <Col
-        span={2}
+        span={1}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: 32
+        }}
+      >
+        on
+      </Col>
+      <Col span={6}>
+        <DatePicker
+          value={date}
+          onChange={date => setDate(date)}
+          style={{ width: "100%" }}
+        />
+      </Col>
+      <Col
+        span={1}
         style={{
           display: "flex",
           justifyContent: "center",
@@ -67,7 +87,7 @@ const LookupRow: React.FC<{
       >
         at
       </Col>
-      <Col span={10}>
+      <Col span={6}>
         <TimePicker
           value={time}
           onChange={setTime}

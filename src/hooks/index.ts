@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
+import { Moment } from "moment";
 
 import { searchCity } from "../services/cities";
+import { fetchTimezone } from "../services/timezones";
+import { Place } from "../types";
 
 // Source: https://usehooks.com/useDebounce/
 export const useDebounce = (value: any, delay: number) => {
@@ -44,4 +47,34 @@ export const useSearchLocation = (
       search();
     }
   }, [debouncedSearchString, setPlaces]);
+};
+
+export const useFetchTimezone = (
+  place: Place,
+  date: Moment | null | undefined,
+  time: Moment | null | undefined,
+  setTimezone: Function
+) => {
+  useEffect(() => {
+    async function fetch() {
+      try {
+        if (date && time) {
+          const timestamp = date
+            .hours(time.hours())
+            .minutes(time.minutes())
+            .seconds(time.second())
+            .unix();
+
+          const timezone = await fetchTimezone(place.id, timestamp);
+          setTimezone(timezone);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    if (place && date && time) {
+      fetch();
+    }
+  }, [place, time, setTimezone, date]);
 };

@@ -3,7 +3,8 @@ import axios from "axios";
 import { TimezoneData } from "../types";
 
 export const fakeFetchTimezone = async (
-  placeId: string
+  placeId: string,
+  timestamp: number
 ): Promise<TimezoneData> => {
   return {
     dstOffset: 0,
@@ -13,10 +14,13 @@ export const fakeFetchTimezone = async (
   };
 };
 
-export const fetchTimezone = async (placeId: string): Promise<TimezoneData> => {
+export const fetchTimezone = async (
+  placeId: string,
+  timestamp: number
+): Promise<TimezoneData> => {
   try {
     const { data } = await axios.get(
-      `https://us-central1-jetlag-d62bc.cloudfunctions.net/timezone?place=${placeId}`
+      `https://us-central1-jetlag-d62bc.cloudfunctions.net/timezone?place=${placeId}&timestamp=${timestamp}`
     );
     return data;
   } catch (e) {

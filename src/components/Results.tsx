@@ -1,39 +1,41 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Row, Col } from "antd";
+import { Moment } from "moment";
 
 import { Place, TimezoneData } from "../types";
-import { fetchTimezone } from "../services/timezones";
+import { useFetchTimezone } from "../hooks";
 
-const Results: React.FC<{ departPlace: Place; arrivePlace: Place }> = ({
+const Results: React.FC<{
+  departPlace: Place;
+  departDate: Moment | null | undefined;
+  departTime: Moment | null | undefined;
+  arrivePlace: Place;
+  arriveDate: Moment | null | undefined;
+  arriveTime: Moment | null | undefined;
+}> = ({
   departPlace,
-  arrivePlace
+  departDate,
+  departTime,
+  arrivePlace,
+  arriveDate,
+  arriveTime
 }) => {
-  const [timezone, setTimezone] = useState<TimezoneData>();
+  const [departTimezone, setDepartTimezone] = useState<TimezoneData>();
+  const [arriveTimezone, setArriveTimezone] = useState<TimezoneData>();
 
-  useEffect(() => {
-    async function fetch() {
-      try {
-        const timezone = await fetchTimezone(departPlace.id);
-        setTimezone(timezone);
-      } catch (e) {
-        console.error(e);
-      }
-    }
-
-    if (departPlace) {
-      fetch();
-    }
-  }, [departPlace]);
+  useFetchTimezone(departPlace, departDate, departTime, setDepartTimezone);
+  useFetchTimezone(arrivePlace, arriveDate, arriveTime, setArriveTimezone);
 
   return (
     <Row>
       <Col span={4}></Col>
       <Col span={8}>
-        <div>{departPlace ? departPlace.name : ""}</div>
-        <div>{timezone?.timeZoneName}</div>
+        <div>{departPlace?.name}</div>
+        <div>{departTimezone?.timeZoneName}</div>
       </Col>
       <Col span={8}>
-        <div>{arrivePlace ? arrivePlace.name : ""}</div>
+        <div>{arrivePlace?.name}</div>
+        <div>{arriveTimezone?.timeZoneName}</div>
       </Col>
       <Col span={4}></Col>
     </Row>
