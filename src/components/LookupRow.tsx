@@ -3,7 +3,7 @@ import { Moment } from "moment";
 
 import { Row, Col, Select, TimePicker } from "antd";
 
-import { SetTime, SetPlace } from "./types";
+import { SetTime, SetPlace, Place } from "../types";
 import { useSearchLocation } from "./hooks";
 
 const { Option } = Select;
@@ -16,7 +16,7 @@ const LookupRow: React.FC<{
   setPlace: SetPlace;
   timeFormat: string;
 }> = ({ label, time, setTime, place, setPlace, timeFormat }) => {
-  const [places, setPlaces] = useState<string[]>([""]);
+  const [places, setPlaces] = useState<Place[]>([]);
   const [searchString, setSearchString] = useState<string>("");
 
   useSearchLocation(searchString, setPlaces);
@@ -40,12 +40,13 @@ const LookupRow: React.FC<{
           value={place}
           onSearch={str => setSearchString(str)}
           onChange={setPlace}
+          filterOption={false}
           style={{ width: "100%" }}
         >
-          {places.map((option: string, i: number) => {
+          {places.map((place: Place, i: number) => {
             return (
-              <Option key={i} value={option.toLowerCase()}>
-                {option}
+              <Option key={i} value={place.id}>
+                {place.name}
               </Option>
             );
           })}

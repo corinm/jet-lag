@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { fakeSearchCity as searchCity } from "../services/cities";
+import { searchCity } from "../services/cities";
 
 // Source: https://usehooks.com/useDebounce/
 export const useDebounce = (value: any, delay: number) => {

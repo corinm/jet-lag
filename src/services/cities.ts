@@ -1,21 +1,20 @@
 import axios from "axios";
 
-export const fakeSearchCity = async (input: string): Promise<string[]> => {
-  return ["London", "Los Angeles"];
+import { Place } from "../types";
+
+export const fakeSearchCity = async (input: string): Promise<Place[]> => {
+  return [
+    { name: "London, UK", id: "1" },
+    { name: "Los Angeles", id: "2" }
+  ];
 };
 
-export const searchCity = async (input: string): Promise<string[]> => {
+export const searchCity = async (input: string): Promise<Place[]> => {
   try {
-    const res = await axios.get(
+    const { data } = await axios.get(
       `https://us-central1-jetlag-d62bc.cloudfunctions.net/cities?search=${input}`
     );
-
-    if (!Array.isArray(res.data)) {
-      throw new Error("res.data not an array");
-    }
-
-    const places = res.data;
-    return places;
+    return data;
   } catch (e) {
     console.error(e);
     throw e;
