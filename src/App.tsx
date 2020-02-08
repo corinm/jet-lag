@@ -7,7 +7,7 @@ import Lookup from "./components/Lookup";
 const App: React.FC = () => {
   return (
     <div>
-      <Lookup></Lookup>
+      <Lookup />
     </div>
   );
 };
