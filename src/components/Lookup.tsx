@@ -4,6 +4,7 @@ import { Row, Col } from "antd";
 
 import LookupRow from "./LookupRow";
 import Results from "./Results";
+import styles from "./Lookup.module.css";
 
 const format = "HH:mm";
 
@@ -17,7 +18,7 @@ const Lookup: React.FC = () => {
 
   return (
     <Row>
-      <Row style={{ marginTop: 40 }}>
+      <Row className={styles.row}>
         <Col span={2}></Col>
         <Col span={20}>
           <LookupRow
