@@ -3,15 +3,7 @@ import { Moment } from "moment";
 import { Row, Col, Timeline as AntTimeline } from "antd";
 
 import { Place } from "../types";
-
-const applyOffset = (
-  time: Moment | null | undefined,
-  utcOffset: number
-): string | undefined =>
-  time
-    ?.clone()
-    ?.utcOffset(utcOffset)
-    .format("HH:mm");
+import { applyOffset } from "./helpers";
 
 const Timeline: React.FC<{
   departPlace: Place;
