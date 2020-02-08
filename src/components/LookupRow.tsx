@@ -59,7 +59,7 @@ const LookupRow: React.FC<{
         <DatePicker
           value={date}
           onChange={date => setDate(date)}
-          className={styles.joiningText}
+          className={styles.fullWidth}
         />
       </Col>
       <Col span={1} className={styles.joiningText}>
