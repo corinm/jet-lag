@@ -32,7 +32,6 @@ export const useSearchLocation = (
 
   useEffect(() => {
     async function search() {
-      console.log(`Searching for ${debouncedSearchString}`);
       try {
         const places = await searchCity(debouncedSearchString);
         setPlaces(places);
@@ -59,12 +58,12 @@ export const useFetchTimezone = (
     async function fetch() {
       try {
         if (date && time) {
-          const timestamp = date
+          const clonedDate = date.clone();
+          const timestamp = clonedDate
             .hours(time.hours())
             .minutes(time.minutes())
             .seconds(time.second())
             .unix();
-
           const timezone = await fetchTimezone(place.id, timestamp);
           setTimezone(timezone);
         }

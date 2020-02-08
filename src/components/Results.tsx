@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Row, Col } from "antd";
+import { Row } from "antd";
 import { Moment } from "moment";
 
-import { Place, TimezoneData } from "../types";
+import Headings from "./Headings";
+import Timeline from "./Timeline";
+import { Place, Timezone } from "../types";
 import { useFetchTimezone } from "../hooks";
 
 const Results: React.FC<{
@@ -20,24 +22,42 @@ const Results: React.FC<{
   arriveDate,
   arriveTime
 }) => {
-  const [departTimezone, setDepartTimezone] = useState<TimezoneData>();
-  const [arriveTimezone, setArriveTimezone] = useState<TimezoneData>();
+  const [departTimezone, setDepartTimezone] = useState<Timezone>();
+  const [arriveTimezone, setArriveTimezone] = useState<Timezone>();
 
   useFetchTimezone(departPlace, departDate, departTime, setDepartTimezone);
   useFetchTimezone(arrivePlace, arriveDate, arriveTime, setArriveTimezone);
 
+  const allDataPresent =
+    departPlace &&
+    arrivePlace &&
+    departDate &&
+    arriveDate &&
+    departTime &&
+    arriveTime &&
+    departTimezone &&
+    arriveTimezone;
+
+  if (!allDataPresent) {
+    return null;
+  }
+
   return (
     <Row>
-      <Col span={4}></Col>
-      <Col span={8}>
-        <div>{departPlace?.name}</div>
-        <div>{departTimezone?.timeZoneName}</div>
-      </Col>
-      <Col span={8}>
-        <div>{arrivePlace?.name}</div>
-        <div>{arriveTimezone?.timeZoneName}</div>
-      </Col>
-      <Col span={4}></Col>
+      <Headings
+        departPlaceName={departPlace.name}
+        departTimezoneName={departTimezone?.timeZoneName || ""}
+        arrivePlaceName={arrivePlace.name}
+        arriveTimezoneName={arriveTimezone?.timeZoneName || ""}
+      />
+      <Timeline
+        departPlace={departPlace}
+        departTime={departTime}
+        departTimezoneUtcOffset={departTimezone?.utcOffset || 0}
+        arrivePlace={arrivePlace}
+        arriveTime={arriveTime}
+        arriveTimezoneUtcOffset={arriveTimezone?.utcOffset || 0}
+      ></Timeline>
     </Row>
   );
 };
