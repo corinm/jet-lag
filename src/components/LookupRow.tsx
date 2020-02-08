@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Moment } from "moment";
-
 import { Row, Col, Select, DatePicker, TimePicker } from "antd";
 
+import styles from "./LookupRow.module.css";
 import { SetDate, SetTime, SetPlace, Place } from "../types";
 import { useSearchLocation } from "../hooks";
 
@@ -29,15 +29,7 @@ const LookupRow: React.FC<{
 
   return (
     <Row>
-      <Col
-        span={2}
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: 32
-        }}
-      >
+      <Col span={2} className={styles.joiningText}>
         {label}
       </Col>
       <Col span={8}>
@@ -49,7 +41,7 @@ const LookupRow: React.FC<{
           showArrow={false}
           filterOption={false}
           notFoundContent={null}
-          style={{ width: "100%" }}
+          className={styles.fullWidth}
         >
           {places.map((place: Place, i: number) => {
             return (
@@ -60,33 +52,17 @@ const LookupRow: React.FC<{
           })}
         </Select>
       </Col>
-      <Col
-        span={1}
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: 32
-        }}
-      >
+      <Col span={1} className={styles.joiningText}>
         on
       </Col>
       <Col span={6}>
         <DatePicker
           value={date}
           onChange={date => setDate(date)}
-          style={{ width: "100%" }}
+          className={styles.joiningText}
         />
       </Col>
-      <Col
-        span={1}
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: 32
-        }}
-      >
+      <Col span={1} className={styles.joiningText}>
         at
       </Col>
       <Col span={6}>
@@ -94,7 +70,7 @@ const LookupRow: React.FC<{
           value={time}
           onChange={setTime}
           format={timeFormat}
-          style={{ width: "100%" }}
+          className={styles.fullWidth}
         />
       </Col>
     </Row>

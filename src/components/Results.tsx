@@ -28,17 +28,20 @@ const Results: React.FC<{
   useFetchTimezone(departPlace, departDate, departTime, setDepartTimezone);
   useFetchTimezone(arrivePlace, arriveDate, arriveTime, setArriveTimezone);
 
-  const allDataPresent =
-    departPlace &&
-    arrivePlace &&
-    departDate &&
-    arriveDate &&
-    departTime &&
-    arriveTime &&
-    departTimezone &&
-    arriveTimezone;
+  const anyDataMissing = () => {
+    return !(
+      departPlace &&
+      arrivePlace &&
+      departDate &&
+      arriveDate &&
+      departTime &&
+      arriveTime &&
+      departTimezone &&
+      arriveTimezone
+    );
+  };
 
-  if (!allDataPresent) {
+  if (anyDataMissing()) {
     return null;
   }
 
@@ -53,10 +56,10 @@ const Results: React.FC<{
       <Timeline
         departPlace={departPlace}
         departTime={departTime}
-        departTimezoneUtcOffset={departTimezone?.utcOffset || 0}
+        departUtcOffset={departTimezone?.utcOffset || 0}
         arrivePlace={arrivePlace}
         arriveTime={arriveTime}
-        arriveTimezoneUtcOffset={arriveTimezone?.utcOffset || 0}
+        arriveUtcOffset={arriveTimezone?.utcOffset || 0}
       ></Timeline>
     </Row>
   );

@@ -1,6 +1,8 @@
 import React from "react";
 import { Row, Col } from "antd";
 
+import styles from "./Headings.module.css";
+
 const Headings: React.FC<{
   departPlaceName: string;
   departTimezoneName: string;
@@ -13,11 +15,11 @@ const Headings: React.FC<{
   arriveTimezoneName
 }) => {
   return (
-    <Row style={{ marginTop: 40, marginBottom: 40 }}>
+    <Row className={styles.row}>
       <Col span={4}></Col>
       <Col span={7}>
-        <div style={{ textAlign: "right" }}>{departPlaceName}</div>
-        <div style={{ textAlign: "right" }}>{departTimezoneName}</div>
+        <div className={styles.textRight}>{departPlaceName}</div>
+        <div className={styles.textRight}>{departTimezoneName}</div>
       </Col>
       <Col span={2}></Col>
       <Col span={7}>
