@@ -56,10 +56,10 @@ const Results: React.FC<{
       <Timeline
         departPlace={departPlace}
         departTime={departTime}
-        departTimezoneUtcOffset={departTimezone?.utcOffset || 0}
+        departUtcOffset={departTimezone?.utcOffset || 0}
         arrivePlace={arrivePlace}
         arriveTime={arriveTime}
-        arriveTimezoneUtcOffset={arriveTimezone?.utcOffset || 0}
+        arriveUtcOffset={arriveTimezone?.utcOffset || 0}
       ></Timeline>
     </Row>
   );

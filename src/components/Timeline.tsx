@@ -4,37 +4,34 @@ import { Row, Col, Timeline as AntTimeline } from "antd";
 
 import { Place } from "../types";
 
+const applyOffset = (
+  time: Moment | null | undefined,
+  utcOffset: number
+): string | undefined =>
+  time
+    ?.clone()
+    ?.utcOffset(utcOffset)
+    .format("HH:mm");
+
 const Timeline: React.FC<{
   departPlace: Place;
   departTime: Moment | null | undefined;
-  departTimezoneUtcOffset: number;
+  departUtcOffset: number;
   arrivePlace: Place;
   arriveTime: Moment | null | undefined;
-  arriveTimezoneUtcOffset: number;
+  arriveUtcOffset: number;
 }> = ({
   departPlace,
   departTime,
-  departTimezoneUtcOffset,
+  departUtcOffset,
   arrivePlace,
   arriveTime,
-  arriveTimezoneUtcOffset
+  arriveUtcOffset
 }) => {
-  const departTimeInDepartTimezone = departTime
-    ?.clone()
-    ?.utcOffset(departTimezoneUtcOffset)
-    .format("HH:mm");
-  const arriveTimeInDepartTimezone = arriveTime
-    ?.clone()
-    ?.utcOffset(departTimezoneUtcOffset)
-    .format("HH:mm");
-  const departTimeInArriveTimezone = departTime
-    ?.clone()
-    ?.utcOffset(arriveTimezoneUtcOffset)
-    .format("HH:mm");
-  const arriveTimeInArriveTimezone = arriveTime
-    ?.clone()
-    ?.utcOffset(arriveTimezoneUtcOffset)
-    .format("HH:mm");
+  const departTimeInDepartTimezone = applyOffset(departTime, departUtcOffset);
+  const arriveTimeInDepartTimezone = applyOffset(arriveTime, departUtcOffset);
+  const departTimeInArriveTimezone = applyOffset(departTime, arriveUtcOffset);
+  const arriveTimeInArriveTimezone = applyOffset(arriveTime, arriveUtcOffset);
 
   return (
     <Row>

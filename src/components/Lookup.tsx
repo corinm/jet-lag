@@ -1,57 +1,66 @@
-import React, { useState } from "react";
-import { Moment } from "moment";
+import React from "react";
 import { Row, Col } from "antd";
+import { Moment } from "moment";
 
+import { Place, SetDate, SetTime, SetPlace } from "../types";
 import LookupRow from "./LookupRow";
-import Results from "./Results";
 import styles from "./Lookup.module.css";
 
 const format = "HH:mm";
 
-const Lookup: React.FC = () => {
-  const [departPlace, setDepartPlace] = useState();
-  const [departDate, setDepartDate] = useState<Moment | null | undefined>();
-  const [departTime, setDepartTime] = useState<Moment | undefined>();
-  const [arrivePlace, setArrivePlace] = useState();
-  const [arriveDate, setArriveDate] = useState<Moment | null | undefined>();
-  const [arriveTime, setArriveTime] = useState<Moment | undefined>();
-
+const Lookup: React.FC<{
+  departDate: Moment | null | undefined;
+  setDepartDate: SetDate;
+  departTime: Moment | undefined;
+  setDepartTime: SetTime;
+  departPlace: Place;
+  setDepartPlace: SetPlace;
+  arriveDate: Moment | null | undefined;
+  setArriveDate: SetDate;
+  arriveTime: Moment | undefined;
+  setArriveTime: SetTime;
+  arrivePlace: Place;
+  setArrivePlace: SetPlace;
+}> = ({
+  departDate,
+  setDepartDate,
+  departTime,
+  setDepartTime,
+  departPlace,
+  setDepartPlace,
+  arriveDate,
+  setArriveDate,
+  arriveTime,
+  setArriveTime,
+  arrivePlace,
+  setArrivePlace
+}) => {
   return (
-    <Row>
-      <Row className={styles.row}>
-        <Col span={2}></Col>
-        <Col span={20}>
-          <LookupRow
-            label="Departs"
-            date={departDate}
-            setDate={setDepartDate}
-            time={departTime}
-            setTime={setDepartTime}
-            place={departPlace}
-            setPlace={setDepartPlace}
-            timeFormat={format}
-          />
-          <LookupRow
-            label="Arrives"
-            date={arriveDate}
-            setDate={setArriveDate}
-            time={arriveTime}
-            setTime={setArriveTime}
-            place={arrivePlace}
-            setPlace={setArrivePlace}
-            timeFormat={format}
-          />
-        </Col>
-        <Col span={2}></Col>
-      </Row>
-      <Results
-        departPlace={departPlace}
-        departDate={departDate}
-        departTime={departTime}
-        arrivePlace={arrivePlace}
-        arriveDate={arriveDate}
-        arriveTime={arriveTime}
-      ></Results>
+    <Row className={styles.row}>
+      <Col span={2}></Col>
+      <Col span={20}>
+        <LookupRow
+          label="Departs"
+          date={departDate}
+          setDate={setDepartDate}
+          time={departTime}
+          setTime={setDepartTime}
+          place={departPlace}
+          setPlace={setDepartPlace}
+          timeFormat={format}
+        />
+        <LookupRow
+          label="Arrives"
+          date={arriveDate}
+          setDate={setArriveDate}
+          time={arriveTime}
+          setTime={setArriveTime}
+          place={arrivePlace}
+          setPlace={setArrivePlace}
+          timeFormat={format}
+        />
+      </Col>
+      <Col span={2}></Col>
     </Row>
   );
 };
