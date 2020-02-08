@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Row, Col } from "antd";
+import { Row } from "antd";
 import { Moment } from "moment";
 
+import Headings from "./Headings";
 import Timeline from "./Timeline";
 import { Place, Timezone } from "../types";
 import { useFetchTimezone } from "../hooks";
@@ -27,7 +28,7 @@ const Results: React.FC<{
   useFetchTimezone(departPlace, departDate, departTime, setDepartTimezone);
   useFetchTimezone(arrivePlace, arriveDate, arriveTime, setArriveTimezone);
 
-  const showTimeline =
+  const allDataPresent =
     departPlace &&
     arrivePlace &&
     departDate &&
@@ -37,34 +38,26 @@ const Results: React.FC<{
     departTimezone &&
     arriveTimezone;
 
+  if (!allDataPresent) {
+    return null;
+  }
+
   return (
     <Row>
-      {showTimeline ? (
-        <Row>
-          <Col span={4}></Col>
-          <Col span={8}>
-            <div>{departPlace?.name}</div>
-            <div>{departTimezone?.timeZoneName}</div>
-          </Col>
-          <Col span={8}>
-            <div>{arrivePlace?.name}</div>
-            <div>{arriveTimezone?.timeZoneName}</div>
-          </Col>
-          <Col span={4}></Col>
-        </Row>
-      ) : null}
-      <Row>
-        {showTimeline ? (
-          <Timeline
-            departPlace={departPlace}
-            departTime={departTime}
-            departTimezone={departTimezone}
-            arrivePlace={arrivePlace}
-            arriveTime={arriveTime}
-            arriveTimezone={arriveTimezone}
-          ></Timeline>
-        ) : null}
-      </Row>
+      <Headings
+        departPlaceName={departPlace.name}
+        departTimezoneName={departTimezone?.timeZoneName || ""}
+        arrivePlaceName={arrivePlace.name}
+        arriveTimezoneName={arriveTimezone?.timeZoneName || ""}
+      />
+      <Timeline
+        departPlace={departPlace}
+        departTime={departTime}
+        departTimezoneUtcOffset={departTimezone?.utcOffset || 0}
+        arrivePlace={arrivePlace}
+        arriveTime={arriveTime}
+        arriveTimezoneUtcOffset={arriveTimezone?.utcOffset || 0}
+      ></Timeline>
     </Row>
   );
 };

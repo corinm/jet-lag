@@ -16,8 +16,8 @@ const Lookup: React.FC = () => {
   const [arriveTime, setArriveTime] = useState<Moment | undefined>();
 
   return (
-    <div>
-      <Row>
+    <Row>
+      <Row style={{ marginTop: 40 }}>
         <Col span={2}></Col>
         <Col span={20}>
           <LookupRow
@@ -51,7 +51,7 @@ const Lookup: React.FC = () => {
         arriveDate={arriveDate}
         arriveTime={arriveTime}
       ></Results>
-    </div>
+    </Row>
   );
 };
 

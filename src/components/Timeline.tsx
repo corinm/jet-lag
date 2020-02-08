@@ -2,52 +2,44 @@ import React from "react";
 import { Moment } from "moment";
 import { Row, Col, Timeline as AntTimeline } from "antd";
 
-import { Place, Timezone } from "../types";
+import { Place } from "../types";
 
 const Timeline: React.FC<{
   departPlace: Place;
   departTime: Moment | null | undefined;
-  departTimezone: Timezone | undefined;
+  departTimezoneUtcOffset: number;
   arrivePlace: Place;
   arriveTime: Moment | null | undefined;
-  arriveTimezone: Timezone | undefined;
+  arriveTimezoneUtcOffset: number;
 }> = ({
   departPlace,
   departTime,
-  departTimezone,
+  departTimezoneUtcOffset,
   arrivePlace,
   arriveTime,
-  arriveTimezone
+  arriveTimezoneUtcOffset
 }) => {
-  const showTimeline =
-    departPlace &&
-    arrivePlace &&
-    departTime &&
-    arriveTime &&
-    departTimezone &&
-    arriveTimezone;
-
-  if (!showTimeline) {
-    return null;
-  }
-
   const departTimeInDepartTimezone = departTime
-    ?.utcOffset(departTimezone?.utcOffset || 0)
+    ?.clone()
+    ?.utcOffset(departTimezoneUtcOffset)
     .format("HH:mm");
   const arriveTimeInDepartTimezone = arriveTime
-    ?.utcOffset(departTimezone?.utcOffset || 0)
+    ?.clone()
+    ?.utcOffset(departTimezoneUtcOffset)
     .format("HH:mm");
   const departTimeInArriveTimezone = departTime
-    ?.utcOffset(arriveTimezone?.utcOffset || 0)
+    ?.clone()
+    ?.utcOffset(arriveTimezoneUtcOffset)
     .format("HH:mm");
   const arriveTimeInArriveTimezone = arriveTime
-    ?.utcOffset(arriveTimezone?.utcOffset || 0)
+    ?.clone()
+    ?.utcOffset(arriveTimezoneUtcOffset)
     .format("HH:mm");
 
   return (
     <Row>
       <Col span={4}></Col>
-      <Col span={8}>
+      <Col span={7}>
         <AntTimeline mode="right">
           <AntTimeline.Item>
             Depart {departPlace.name} at {departTimeInDepartTimezone}
@@ -57,7 +49,8 @@ const Timeline: React.FC<{
           </AntTimeline.Item>
         </AntTimeline>
       </Col>
-      <Col span={8}>
+      <Col span={2}></Col>
+      <Col span={7}>
         <AntTimeline>
           <AntTimeline.Item>
             Depart {departPlace.name} at {departTimeInArriveTimezone}

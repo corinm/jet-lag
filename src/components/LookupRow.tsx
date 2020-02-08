@@ -46,7 +46,9 @@ const LookupRow: React.FC<{
           value={place ? place.name : ""}
           onSearch={str => setSearchString(str)}
           onChange={(placeId: string) => setPlace(findPlace(placeId))}
+          showArrow={false}
           filterOption={false}
+          notFoundContent={null}
           style={{ width: "100%" }}
         >
           {places.map((place: Place, i: number) => {
