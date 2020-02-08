@@ -10,5 +10,12 @@ export interface SetTime {
 }
 
 export interface SetPlace {
-  (place: string): void;
+  (place: Place): void;
+}
+
+export interface TimezoneData {
+  dstOffset: number;
+  rawOffset: number;
+  timeZoneId: string; //"Europe/London"
+  timeZoneName: string; //"Greenwich Mean Time"
 }

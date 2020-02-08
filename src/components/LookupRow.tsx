@@ -4,7 +4,7 @@ import { Moment } from "moment";
 import { Row, Col, Select, TimePicker } from "antd";
 
 import { SetTime, SetPlace, Place } from "../types";
-import { useSearchLocation } from "./hooks";
+import { useSearchLocation } from "../hooks";
 
 const { Option } = Select;
 
@@ -12,7 +12,7 @@ const LookupRow: React.FC<{
   label: string;
   time: Moment;
   setTime: SetTime;
-  place: string;
+  place: Place;
   setPlace: SetPlace;
   timeFormat: string;
 }> = ({ label, time, setTime, place, setPlace, timeFormat }) => {
@@ -20,6 +20,10 @@ const LookupRow: React.FC<{
   const [searchString, setSearchString] = useState<string>("");
 
   useSearchLocation(searchString, setPlaces);
+
+  // At most there will be five places so iterating is okay
+  const findPlace = (id: string): Place =>
+    places.filter(place => place.id === id)[0];
 
   return (
     <Row>
@@ -37,9 +41,9 @@ const LookupRow: React.FC<{
       <Col span={8}>
         <Select
           showSearch
-          value={place}
+          value={place ? place.name : ""}
           onSearch={str => setSearchString(str)}
-          onChange={setPlace}
+          onChange={(placeId: string) => setPlace(findPlace(placeId))}
           filterOption={false}
           style={{ width: "100%" }}
         >
