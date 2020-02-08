@@ -3,7 +3,6 @@ import "antd/dist/antd.css";
 import { Moment } from "moment";
 import { PageHeader } from "antd";
 
-import "./App.css";
 import Lookup from "./components/Lookup";
 import Results from "./components/Results";
 
