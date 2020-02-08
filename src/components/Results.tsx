@@ -39,18 +39,20 @@ const Results: React.FC<{
 
   return (
     <Row>
-      <Row>
-        <Col span={4}></Col>
-        <Col span={8}>
-          <div>{departPlace?.name}</div>
-          <div>{departTimezone?.timeZoneName}</div>
-        </Col>
-        <Col span={8}>
-          <div>{arrivePlace?.name}</div>
-          <div>{arriveTimezone?.timeZoneName}</div>
-        </Col>
-        <Col span={4}></Col>
-      </Row>
+      {showTimeline ? (
+        <Row>
+          <Col span={4}></Col>
+          <Col span={8}>
+            <div>{departPlace?.name}</div>
+            <div>{departTimezone?.timeZoneName}</div>
+          </Col>
+          <Col span={8}>
+            <div>{arrivePlace?.name}</div>
+            <div>{arriveTimezone?.timeZoneName}</div>
+          </Col>
+          <Col span={4}></Col>
+        </Row>
+      ) : null}
       <Row>
         {showTimeline ? (
           <Timeline
