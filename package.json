@@ -2,7 +2,7 @@
   "name": "jet-lag",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://corinm.github.io/jet-lag",
+  "homepage": "https://corinm.github.io/jet-lag/",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
