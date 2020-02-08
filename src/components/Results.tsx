@@ -3,7 +3,7 @@ import { Row, Col } from "antd";
 import { Moment } from "moment";
 
 import Timeline from "./Timeline";
-import { Place, TimezoneData } from "../types";
+import { Place, Timezone } from "../types";
 import { useFetchTimezone } from "../hooks";
 
 const Results: React.FC<{
@@ -21,8 +21,8 @@ const Results: React.FC<{
   arriveDate,
   arriveTime
 }) => {
-  const [departTimezone, setDepartTimezone] = useState<TimezoneData>();
-  const [arriveTimezone, setArriveTimezone] = useState<TimezoneData>();
+  const [departTimezone, setDepartTimezone] = useState<Timezone>();
+  const [arriveTimezone, setArriveTimezone] = useState<Timezone>();
 
   useFetchTimezone(departPlace, departDate, departTime, setDepartTimezone);
   useFetchTimezone(arrivePlace, arriveDate, arriveTime, setArriveTimezone);
@@ -33,7 +33,9 @@ const Results: React.FC<{
     departDate &&
     arriveDate &&
     departTime &&
-    arriveTime;
+    arriveTime &&
+    departTimezone &&
+    arriveTimezone;
 
   return (
     <Row>
@@ -54,8 +56,10 @@ const Results: React.FC<{
           <Timeline
             departPlace={departPlace}
             departTime={departTime}
+            departTimezone={departTimezone}
             arrivePlace={arrivePlace}
             arriveTime={arriveTime}
+            arriveTimezone={arriveTimezone}
           ></Timeline>
         ) : null}
       </Row>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import moment, { Moment } from "moment";
+import { Moment } from "moment";
 import { Row, Col } from "antd";
 
 import LookupRow from "./LookupRow";
@@ -10,10 +10,10 @@ const format = "HH:mm";
 const Lookup: React.FC = () => {
   const [departPlace, setDepartPlace] = useState();
   const [departDate, setDepartDate] = useState<Moment | null | undefined>();
-  const [departTime, setDepartTime] = useState(moment("00:00", format));
+  const [departTime, setDepartTime] = useState<Moment | undefined>();
   const [arrivePlace, setArrivePlace] = useState();
   const [arriveDate, setArriveDate] = useState<Moment | null | undefined>();
-  const [arriveTime, setArriveTime] = useState(moment("00:00", format));
+  const [arriveTime, setArriveTime] = useState<Moment | undefined>();
 
   return (
     <div>

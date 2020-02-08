@@ -5,7 +5,7 @@ import { Place } from "../types";
 export const fakeSearchCity = async (input: string): Promise<Place[]> => {
   return [
     { name: "London, UK", id: "1" },
-    { name: "Los Angeles", id: "2" }
+    { name: "Berlin, Germany", id: "2" }
   ];
 };
 

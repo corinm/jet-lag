@@ -12,7 +12,7 @@ const LookupRow: React.FC<{
   label: string;
   date: Moment | null | undefined;
   setDate: SetDate;
-  time: Moment;
+  time: Moment | undefined;
   setTime: SetTime;
   place: Place;
   setPlace: SetPlace;
