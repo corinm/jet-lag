@@ -15,7 +15,7 @@ const Headings: React.FC<{
   arriveTimezoneName
 }) => {
   return (
-    <Row className={styles.row}>
+    <Row className={styles.outerRow}>
       <Col span={4}></Col>
       <Col span={7}>
         <div className={styles.leftHeading}>{departPlaceName}</div>

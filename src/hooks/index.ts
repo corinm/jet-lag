@@ -82,3 +82,31 @@ export const useFetchTimezone = (
     }
   }, [place, time, setTimezone, date]);
 };
+
+export const useCheckScreenWidth = (
+  isMobile: boolean,
+  setIsMobile: Function
+) => {
+  useEffect(() => {
+    console.log("Effect");
+
+    function onResize() {
+      console.log("Resize");
+      if (!isMobile && window.innerWidth <= 640) {
+        console.log("Setting to mobile");
+        setIsMobile(true);
+      } else if (isMobile && window.innerWidth >= 641) {
+        console.log("Setting to larger");
+        setIsMobile(false);
+      }
+    }
+
+    onResize();
+
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      window.removeEventListener("resize", onResize);
+    };
+  });
+};

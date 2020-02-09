@@ -1,0 +1,27 @@
+.header {
+  color: #ffffff;
+  font-size: 2em;
+}
+
+.contentBorder {
+  padding: 10px 0 0 0;
+
+  @media (min-width: 641px) {
+    padding: 50px 50px 0 50px;
+  }
+}
+
+.contentInner {
+  background-color: #ffffff;
+  padding: 6px 0;
+
+  @media (min-width: 641px) {
+    padding: 24px;
+  }
+}
+
+.footer {
+  @media (max-width: 640px) {
+    padding: 12px 5px;
+  }
+}

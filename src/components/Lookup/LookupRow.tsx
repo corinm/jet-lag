@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Moment } from "moment";
-import { Row, Col, Select, DatePicker, TimePicker } from "antd";
+import { Select, DatePicker, TimePicker } from "antd";
 
-import styles from "./Lookup.module.css";
+import styles from "./Lookup.module.scss";
 
 import { SetDate, SetTime, SetPlace, Place } from "../../types";
 import { useSearchLocation } from "../../hooks";
 import Loader from "./Loader";
 import JoiningText from "./JoiningText";
+import LookupRowMobileLayout from "./LookupRowMobileLayout";
 
 const LookupRow: React.FC<{
   label: string;
@@ -18,7 +19,18 @@ const LookupRow: React.FC<{
   place: Place;
   setPlace: SetPlace;
   timeFormat: string;
-}> = ({ label, date, setDate, time, setTime, place, setPlace, timeFormat }) => {
+  isMobile: boolean;
+}> = ({
+  label,
+  date,
+  setDate,
+  time,
+  setTime,
+  place,
+  setPlace,
+  timeFormat,
+  isMobile
+}) => {
   const [places, setPlaces] = useState<Place[]>([]);
   const [searchString, setSearchString] = useState<string>("");
   const [isSearching, setIsSearching] = useState(false);
@@ -32,9 +44,9 @@ const LookupRow: React.FC<{
   const onPlaceSelect = (placeId: string) => setPlace(findPlace(placeId));
 
   return (
-    <Row>
-      <JoiningText span={2} text={label}></JoiningText>
-      <Col span={8}>
+    <LookupRowMobileLayout
+      text1={<JoiningText text={label}></JoiningText>}
+      select1={
         <Select
           showSearch
           value={place ? place.name : ""}
@@ -52,25 +64,26 @@ const LookupRow: React.FC<{
             </Select.Option>
           ))}
         </Select>
-      </Col>
-      <JoiningText span={1} text="on"></JoiningText>
-      <Col span={6}>
+      }
+      text2={<JoiningText text="on"></JoiningText>}
+      select2={
         <DatePicker
           value={date}
           onChange={date => setDate(date)}
           className={styles.fullWidth}
         />
-      </Col>
-      <JoiningText span={1} text="at"></JoiningText>
-      <Col span={6}>
+      }
+      text3={<JoiningText text="at"></JoiningText>}
+      select3={
         <TimePicker
           value={time}
           onChange={setTime}
           format={timeFormat}
           className={styles.fullWidth}
         />
-      </Col>
-    </Row>
+      }
+      isMobile={isMobile}
+    />
   );
 };
 
