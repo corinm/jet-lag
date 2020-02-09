@@ -28,6 +28,19 @@ describe("convertArrivalTime", () => {
 
     expect(converted?.format("HH:mm")).toEqual("23:00");
   });
+
+  it("should return 00:30 for Lon 09:10 -> KL 08:30", () => {
+    const arrivalTimeLocal = moment("08:30", "HH:mm");
+    const departureOffset = 0 * 60;
+    const arrivalOffset = 8 * 60;
+    const converted = convertArrivalTime(
+      arrivalTimeLocal,
+      departureOffset,
+      arrivalOffset
+    );
+
+    expect(converted?.format("HH:mm")).toEqual("00:30");
+  });
 });
 
 describe("convertDepartureTime", () => {
@@ -55,5 +68,18 @@ describe("convertDepartureTime", () => {
     );
 
     expect(converted?.format("HH:mm")).toEqual("03:00");
+  });
+
+  it("should return 17:10 for Lon 09:10 -> KL 08:30", () => {
+    const departureTimeLocal = moment("09:10", "HH:mm");
+    const departureOffset = 0 * 60;
+    const arrivalOffset = 8 * 60;
+    const converted = convertDepartureTime(
+      departureTimeLocal,
+      departureOffset,
+      arrivalOffset
+    );
+
+    expect(converted?.format("HH:mm")).toEqual("17:10");
   });
 });
