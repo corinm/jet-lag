@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Moment } from "moment";
-import { Row, Col, Select, DatePicker, TimePicker } from "antd";
+import { Select, DatePicker, TimePicker } from "antd";
 
 import styles from "./Lookup.module.scss";
 
@@ -8,46 +8,7 @@ import { SetDate, SetTime, SetPlace, Place } from "../../types";
 import { useSearchLocation } from "../../hooks";
 import Loader from "./Loader";
 import JoiningText from "./JoiningText";
-
-const Layout: React.FC<{
-  text1: any;
-  select1: any;
-  text2: any;
-  select2: any;
-  text3: any;
-  select3: any;
-  isMobile: boolean;
-}> = ({ text1, select1, text2, select2, text3, select3, isMobile }) => {
-  if (isMobile) {
-    return (
-      <Row className={styles.lookupRow}>
-        <Row className={styles.lookupMobileRow}>
-          <Col span={6}>{text1}</Col>
-          <Col span={18}>{select1}</Col>
-        </Row>
-        <Row className={styles.lookupMobileRow}>
-          <Col span={6}>{text2}</Col>
-          <Col span={18}>{select2}</Col>
-        </Row>
-        <Row className={styles.lookupMobileRow}>
-          <Col span={6}>{text3}</Col>
-          <Col span={18}>{select3}</Col>
-        </Row>
-      </Row>
-    );
-  } else {
-    return (
-      <Row className={styles.lookupRow}>
-        <Col span={2}>{text1}</Col>
-        <Col span={8}>{select1}</Col>
-        <Col span={1}>{text2}</Col>
-        <Col span={6}>{select2}</Col>
-        <Col span={1}>{text3}</Col>
-        <Col span={6}>{select3}</Col>
-      </Row>
-    );
-  }
-};
+import LookupRowMobileLayout from "./LookupRowMobileLayout";
 
 const LookupRow: React.FC<{
   label: string;
@@ -83,7 +44,7 @@ const LookupRow: React.FC<{
   const onPlaceSelect = (placeId: string) => setPlace(findPlace(placeId));
 
   return (
-    <Layout
+    <LookupRowMobileLayout
       text1={<JoiningText text={label}></JoiningText>}
       select1={
         <Select
