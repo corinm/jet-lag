@@ -4,8 +4,8 @@ import { Row, Col, Timeline as AntTimeline, Icon } from "antd";
 
 import styles from "./Timeline.module.css";
 
-import { Place } from "../types";
-import { convertArrivalTime, convertDepartureTime } from "./helpers";
+import { Place } from "../../types";
+import { convertArrivalTime, convertDepartureTime } from "../helpers";
 import TakeOffIcon from "./TakeoffIcon";
 import LandingIcon from "./LandingIcon";
 
