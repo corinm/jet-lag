@@ -1,0 +1,8 @@
+.place {
+  /* color: rgb(24, 144, 255); */
+  font-weight: bold;
+}
+
+.duration {
+  color: rgba(0, 0, 0, 0.5);
+}
