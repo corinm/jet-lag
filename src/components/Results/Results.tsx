@@ -6,9 +6,9 @@ import styles from "./Results.module.css";
 
 import Headings from "./Headings";
 import Timeline from "./Timeline";
-import { Place, Timezone } from "../types";
-import { useFetchTimezone } from "../hooks";
-import { calculateFlightDuration } from "./helpers";
+import { Place, Timezone } from "../../types";
+import { useFetchTimezone } from "../../hooks";
+import { calculateFlightDuration } from "../helpers";
 
 const Results: React.FC<{
   departPlace: Place;
