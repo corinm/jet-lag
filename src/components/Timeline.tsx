@@ -6,6 +6,8 @@ import styles from "./Timeline.module.css";
 
 import { Place } from "../types";
 import { convertArrivalTime, convertDepartureTime } from "./helpers";
+import TakeOffIcon from "./TakeoffIcon";
+import LandingIcon from "./LandingIcon";
 
 const Timeline: React.FC<{
   departPlace: Place;
@@ -42,7 +44,7 @@ const Timeline: React.FC<{
       <Col span={4}></Col>
       <Col span={7}>
         <AntTimeline mode="right">
-          <AntTimeline.Item className={styles.place}>
+          <AntTimeline.Item className={styles.place} dot={<TakeOffIcon />}>
             Depart {departPlace.name} at {departTimeInDepartTimezone}
           </AntTimeline.Item>
           <AntTimeline.Item
@@ -52,7 +54,7 @@ const Timeline: React.FC<{
           >
             {flightDuration}
           </AntTimeline.Item>
-          <AntTimeline.Item className={styles.place}>
+          <AntTimeline.Item className={styles.place} dot={<LandingIcon />}>
             Arrive {arrivePlace.name} at {arriveTimeInDepartTimezone}
           </AntTimeline.Item>
         </AntTimeline>
@@ -60,7 +62,7 @@ const Timeline: React.FC<{
       <Col span={2}></Col>
       <Col span={7}>
         <AntTimeline>
-          <AntTimeline.Item className={styles.place}>
+          <AntTimeline.Item className={styles.place} dot={<TakeOffIcon />}>
             Depart {departPlace.name} at {departTimeInArriveTimezone}
           </AntTimeline.Item>
           <AntTimeline.Item
@@ -70,7 +72,7 @@ const Timeline: React.FC<{
           >
             {flightDuration}
           </AntTimeline.Item>
-          <AntTimeline.Item className={styles.place}>
+          <AntTimeline.Item className={styles.place} dot={<LandingIcon />}>
             Arrive {arrivePlace.name} at {arriveTimeInArriveTimezone}
           </AntTimeline.Item>
         </AntTimeline>

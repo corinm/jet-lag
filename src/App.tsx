@@ -7,7 +7,7 @@ import styles from "./App.module.css";
 
 import Lookup from "./components/Lookup";
 import Results from "./components/Results";
-import Copyright from "./components/Copyright";
+import Footer from "./components/Footer";
 
 const App: React.FC = () => {
   const [departPlace, setDepartPlace] = useState();
@@ -47,7 +47,7 @@ const App: React.FC = () => {
         </div>
       </Layout.Content>
       <Layout.Footer>
-        <Copyright></Copyright>
+        <Footer></Footer>
       </Layout.Footer>
     </Layout>
   );

@@ -50,7 +50,9 @@ const Results: React.FC<{
     departDate,
     departTime,
     arriveDate,
-    arriveTime
+    arriveTime,
+    departTimezone?.utcOffset,
+    arriveTimezone?.utcOffset
   );
 
   return (

@@ -9,18 +9,18 @@ export const fakeFetchTimezone = async (
   if (placeId === "1") {
     return {
       dstOffset: 0,
-      rawOffset: 0,
-      utcOffset: 0,
-      timeZoneId: "Europe/London",
-      timeZoneName: "Greenwich Mean Time"
+      rawOffset: -5 * 60 * 60,
+      utcOffset: -5 * 60,
+      timeZoneId: "?/?",
+      timeZoneName: "Eastern Standard Time"
     };
   } else if (placeId === "2") {
     return {
       dstOffset: 0,
-      rawOffset: 3600,
-      utcOffset: 60,
-      timeZoneId: "Europe/Berlin",
-      timeZoneName: "Central European Standard Time"
+      rawOffset: 0,
+      utcOffset: 0,
+      timeZoneId: "Europe/London",
+      timeZoneName: "Greenwich Mean Time"
     };
   } else {
     return {
