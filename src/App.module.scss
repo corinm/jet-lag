@@ -19,3 +19,9 @@
     padding: 24px;
   }
 }
+
+.footer {
+  @media (max-width: 640px) {
+    padding: 12px 5px;
+  }
+}

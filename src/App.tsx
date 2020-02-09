@@ -46,7 +46,7 @@ const App: React.FC = () => {
           ></Results>
         </div>
       </Layout.Content>
-      <Layout.Footer>
+      <Layout.Footer className={styles.footer}>
         <Footer></Footer>
       </Layout.Footer>
     </Layout>
