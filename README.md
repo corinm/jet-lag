@@ -26,6 +26,7 @@ To get a local copy up and running follow these simple example steps.
 You will need
 
 - [Node.js and npm](https://nodejs.org/en/download/)
+- [Running instance of the jet-lag-server](https://github.com/corinm/jet-lag-server)
 
 ### Installation
 
