@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { Moment } from "moment";
 import { Row, Col, Select, DatePicker, TimePicker } from "antd";
 
-import styles from "./LookupRow.module.css";
-import { SetDate, SetTime, SetPlace, Place } from "../types";
-import { useSearchLocation } from "../hooks";
+import styles from "./Lookup.module.css";
 
-const { Option } = Select;
+import { SetDate, SetTime, SetPlace, Place } from "../../types";
+import { useSearchLocation } from "../../hooks";
+import Loader from "./Loader";
+import JoiningText from "./JoiningText";
 
 const LookupRow: React.FC<{
   label: string;
@@ -20,41 +21,39 @@ const LookupRow: React.FC<{
 }> = ({ label, date, setDate, time, setTime, place, setPlace, timeFormat }) => {
   const [places, setPlaces] = useState<Place[]>([]);
   const [searchString, setSearchString] = useState<string>("");
+  const [isSearching, setIsSearching] = useState(false);
 
-  useSearchLocation(searchString, setPlaces);
+  useSearchLocation(searchString, setPlaces, setIsSearching);
 
   // At most there will be five places so iterating is okay
   const findPlace = (id: string): Place =>
     places.filter(place => place.id === id)[0];
 
+  const onPlaceSelect = (placeId: string) => setPlace(findPlace(placeId));
+
   return (
     <Row>
-      <Col span={2} className={styles.joiningText}>
-        {label}
-      </Col>
+      <JoiningText span={2} text={label}></JoiningText>
       <Col span={8}>
         <Select
           showSearch
           value={place ? place.name : ""}
-          onSearch={str => setSearchString(str)}
-          onChange={(placeId: string) => setPlace(findPlace(placeId))}
+          onSearch={setSearchString}
+          onChange={onPlaceSelect}
           showArrow={false}
           filterOption={false}
-          notFoundContent={null}
+          notFoundContent={isSearching ? <Loader /> : null}
           className={styles.fullWidth}
+          allowClear
         >
-          {places.map((place: Place, i: number) => {
-            return (
-              <Option key={i} value={place.id}>
-                {place.name}
-              </Option>
-            );
-          })}
+          {places.map((place: Place, i: number) => (
+            <Select.Option key={i} value={place.id}>
+              {place.name}
+            </Select.Option>
+          ))}
         </Select>
       </Col>
-      <Col span={1} className={styles.joiningText}>
-        on
-      </Col>
+      <JoiningText span={1} text="on"></JoiningText>
       <Col span={6}>
         <DatePicker
           value={date}
@@ -62,9 +61,7 @@ const LookupRow: React.FC<{
           className={styles.fullWidth}
         />
       </Col>
-      <Col span={1} className={styles.joiningText}>
-        at
-      </Col>
+      <JoiningText span={1} text="at"></JoiningText>
       <Col span={6}>
         <TimePicker
           value={time}
