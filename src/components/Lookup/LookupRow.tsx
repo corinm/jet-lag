@@ -2,12 +2,52 @@ import React, { useState } from "react";
 import { Moment } from "moment";
 import { Row, Col, Select, DatePicker, TimePicker } from "antd";
 
-import styles from "./Lookup.module.css";
+import styles from "./Lookup.module.scss";
 
 import { SetDate, SetTime, SetPlace, Place } from "../../types";
 import { useSearchLocation } from "../../hooks";
 import Loader from "./Loader";
 import JoiningText from "./JoiningText";
+
+const Layout: React.FC<{
+  text1: any;
+  select1: any;
+  text2: any;
+  select2: any;
+  text3: any;
+  select3: any;
+  isMobile: boolean;
+}> = ({ text1, select1, text2, select2, text3, select3, isMobile }) => {
+  if (isMobile) {
+    return (
+      <Row className={styles.lookupRow}>
+        <Row className={styles.lookupMobileRow}>
+          <Col span={6}>{text1}</Col>
+          <Col span={18}>{select1}</Col>
+        </Row>
+        <Row className={styles.lookupMobileRow}>
+          <Col span={6}>{text2}</Col>
+          <Col span={18}>{select2}</Col>
+        </Row>
+        <Row className={styles.lookupMobileRow}>
+          <Col span={6}>{text3}</Col>
+          <Col span={18}>{select3}</Col>
+        </Row>
+      </Row>
+    );
+  } else {
+    return (
+      <Row className={styles.lookupRow}>
+        <Col span={2}>{text1}</Col>
+        <Col span={8}>{select1}</Col>
+        <Col span={1}>{text2}</Col>
+        <Col span={6}>{select2}</Col>
+        <Col span={1}>{text3}</Col>
+        <Col span={6}>{select3}</Col>
+      </Row>
+    );
+  }
+};
 
 const LookupRow: React.FC<{
   label: string;
@@ -18,7 +58,18 @@ const LookupRow: React.FC<{
   place: Place;
   setPlace: SetPlace;
   timeFormat: string;
-}> = ({ label, date, setDate, time, setTime, place, setPlace, timeFormat }) => {
+  isMobile: boolean;
+}> = ({
+  label,
+  date,
+  setDate,
+  time,
+  setTime,
+  place,
+  setPlace,
+  timeFormat,
+  isMobile
+}) => {
   const [places, setPlaces] = useState<Place[]>([]);
   const [searchString, setSearchString] = useState<string>("");
   const [isSearching, setIsSearching] = useState(false);
@@ -32,9 +83,9 @@ const LookupRow: React.FC<{
   const onPlaceSelect = (placeId: string) => setPlace(findPlace(placeId));
 
   return (
-    <Row>
-      <JoiningText span={2} text={label}></JoiningText>
-      <Col span={8}>
+    <Layout
+      text1={<JoiningText text={label}></JoiningText>}
+      select1={
         <Select
           showSearch
           value={place ? place.name : ""}
@@ -52,25 +103,26 @@ const LookupRow: React.FC<{
             </Select.Option>
           ))}
         </Select>
-      </Col>
-      <JoiningText span={1} text="on"></JoiningText>
-      <Col span={6}>
+      }
+      text2={<JoiningText text="on"></JoiningText>}
+      select2={
         <DatePicker
           value={date}
           onChange={date => setDate(date)}
           className={styles.fullWidth}
         />
-      </Col>
-      <JoiningText span={1} text="at"></JoiningText>
-      <Col span={6}>
+      }
+      text3={<JoiningText text="at"></JoiningText>}
+      select3={
         <TimePicker
           value={time}
           onChange={setTime}
           format={timeFormat}
           className={styles.fullWidth}
         />
-      </Col>
-    </Row>
+      }
+      isMobile={isMobile}
+    />
   );
 };
 

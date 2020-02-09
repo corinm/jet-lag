@@ -1,15 +1,15 @@
 import React from "react";
 import { Row, Col } from "antd";
 
-import styles from "./Footer.module.css";
+import styles from "./Footer.module.scss";
 
 const Copyright: React.FC = () => (
-  <div className={styles.text}>Copyright © 2020 Corin Mulliss</div>
+  <div className={styles.copyrightText}>Copyright © 2020 Corin Mulliss</div>
 );
 
 const IconAttribution: React.FC = () => (
-  <div className={styles.text}>
-    {"Airplane icons made by "}
+  <div className={styles.iconText}>
+    <span>Airplane icons made by </span>
     <a
       href="https://www.flaticon.com/authors/those-icons"
       title="Those Icons"
@@ -17,7 +17,7 @@ const IconAttribution: React.FC = () => (
     >
       Those Icons
     </a>
-    {" from "}
+    <span> from </span>
     <a
       href="https://www.flaticon.com/"
       title="Flaticon"

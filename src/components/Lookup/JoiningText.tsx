@@ -1,15 +1,9 @@
 import React from "react";
-import { Col } from "antd";
 
-import styles from "./Lookup.module.css";
+import styles from "./Lookup.module.scss";
 
-const JoiningText: React.FC<{ span: number; text: string }> = ({
-  span,
-  text
-}) => (
-  <Col span={span} className={styles.joiningText}>
-    {text}
-  </Col>
+const JoiningText: React.FC<{ text: string }> = ({ text }) => (
+  <div className={styles.joiningText}>{text}</div>
 );
 
 export default JoiningText;

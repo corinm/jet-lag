@@ -3,7 +3,7 @@ import "antd/dist/antd.css";
 import { Moment } from "moment";
 import { Layout } from "antd";
 
-import styles from "./App.module.css";
+import styles from "./App.module.scss";
 
 import Lookup from "./components/Lookup/Lookup";
 import Results from "./components/Results/Results";
@@ -46,7 +46,7 @@ const App: React.FC = () => {
           ></Results>
         </div>
       </Layout.Content>
-      <Layout.Footer>
+      <Layout.Footer className={styles.footer}>
         <Footer></Footer>
       </Layout.Footer>
     </Layout>
