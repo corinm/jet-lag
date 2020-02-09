@@ -1,5 +1,10 @@
-.copyright {
+.text {
   display: flex;
   justify-content: center;
   font-size: 0.8em;
+}
+
+.link {
+  padding-left: 3px;
+  padding-right: 3px;
 }

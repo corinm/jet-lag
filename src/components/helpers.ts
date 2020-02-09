@@ -22,24 +22,34 @@ export const convertDepartureTime = (
     .add(arrivalOffset / 60, "hours");
 };
 
+const combineDateWithTime = (
+  date: Moment | null | undefined,
+  time: Moment | null | undefined
+): Moment | undefined => {
+  return date
+    ?.clone()
+    .hours(time?.hours() || 0)
+    .minutes(time?.minutes() || 0)
+    .seconds(time?.second() || 0);
+};
+
 export const calculateFlightDuration = (
   departDate: Moment | null | undefined,
   departTime: Moment | null | undefined,
   arriveDate: Moment | null | undefined,
-  arriveTime: Moment | null | undefined
+  arriveTime: Moment | null | undefined,
+  departOffset: number | undefined,
+  arriveOffset: number | undefined
 ): string => {
-  const depart = departDate
-    ?.clone()
-    .hours(departTime?.hours() || 0)
-    .minutes(departTime?.minutes() || 0)
-    .seconds(departTime?.second() || 0);
-  const arrive = arriveDate
-    ?.clone()
-    .hours(arriveTime?.hours() || 0)
-    .minutes(arriveTime?.minutes() || 0)
-    .seconds(arriveTime?.second() || 0);
+  const depart = combineDateWithTime(departDate, departTime);
+  const arrive = combineDateWithTime(arriveDate, arriveTime);
+  const arriveAdjusted = convertArrivalTime(
+    arrive,
+    departOffset || 0,
+    arriveOffset || 0
+  );
 
-  const duration = moment.duration(arrive?.diff(depart));
+  const duration = moment.duration(arriveAdjusted?.diff(depart));
   const hours = duration.hours();
   const minutes = duration.minutes();
 
