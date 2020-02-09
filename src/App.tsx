@@ -5,7 +5,7 @@ import { Layout } from "antd";
 
 import styles from "./App.module.css";
 
-import Lookup from "./components/Lookup";
+import Lookup from "./components/Lookup/Lookup";
 import Results from "./components/Results";
 import Footer from "./components/Footer";
 

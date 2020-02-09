@@ -26,7 +26,8 @@ export const useDebounce = (value: any, delay: number) => {
 
 export const useSearchLocation = (
   searchString: string,
-  setPlaces: Function
+  setPlaces: Function,
+  setSearching: Function
 ) => {
   const debouncedSearchString = useDebounce(searchString, 500);
 
@@ -34,18 +35,22 @@ export const useSearchLocation = (
     async function search() {
       try {
         const places = await searchCity(debouncedSearchString);
+        setSearching(false);
         setPlaces(places);
       } catch (e) {
+        setSearching(false);
         setPlaces([]);
       }
     }
 
     if (debouncedSearchString === "") {
+      setSearching(false);
       setPlaces([]);
     } else {
+      setSearching(true);
       search();
     }
-  }, [debouncedSearchString, setPlaces]);
+  }, [debouncedSearchString, setPlaces, setSearching]);
 };
 
 export const useFetchTimezone = (

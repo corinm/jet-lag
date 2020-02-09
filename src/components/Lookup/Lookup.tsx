@@ -2,7 +2,7 @@ import React from "react";
 import { Row, Col } from "antd";
 import { Moment } from "moment";
 
-import { Place, SetDate, SetTime, SetPlace } from "../types";
+import { Place, SetDate, SetTime, SetPlace } from "../../types";
 import LookupRow from "./LookupRow";
 import styles from "./Lookup.module.css";
 
