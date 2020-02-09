@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Row } from "antd";
+import { Row, Col, Spin } from "antd";
 import { Moment } from "moment";
+
+import styles from "./Results.module.css";
 
 import Headings from "./Headings";
 import Timeline from "./Timeline";
@@ -29,18 +31,40 @@ const Results: React.FC<{
   useFetchTimezone(departPlace, departDate, departTime, setDepartTimezone);
   useFetchTimezone(arrivePlace, arriveDate, arriveTime, setArriveTimezone);
 
-  const anyDataMissing = () => {
-    return !(
+  const placeDateTimePresent = () => {
+    return (
       departPlace &&
       arrivePlace &&
       departDate &&
       arriveDate &&
       departTime &&
-      arriveTime &&
-      departTimezone &&
-      arriveTimezone
+      arriveTime
     );
   };
+
+  const timezonesPresent = () => {
+    return departTimezone && arriveTimezone;
+  };
+
+  const anyDataMissing = () => {
+    return !(placeDateTimePresent() && timezonesPresent());
+  };
+
+  const onlyTimezonesMissing = () => {
+    return placeDateTimePresent() && !timezonesPresent();
+  };
+
+  if (onlyTimezonesMissing()) {
+    return (
+      <Row>
+        <Col span={4}></Col>
+        <Col span={16} className={styles.centre}>
+          <Spin />
+        </Col>
+        <Col span={4}></Col>
+      </Row>
+    );
+  }
 
   if (anyDataMissing()) {
     return null;
