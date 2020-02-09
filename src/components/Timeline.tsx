@@ -3,7 +3,7 @@ import { Moment } from "moment";
 import { Row, Col, Timeline as AntTimeline } from "antd";
 
 import { Place } from "../types";
-import { applyOffset } from "./helpers";
+import { applyOffset, convertArrivalTime } from "./helpers";
 
 const Timeline: React.FC<{
   departPlace: Place;
@@ -20,9 +20,13 @@ const Timeline: React.FC<{
   arriveTime,
   arriveUtcOffset
 }) => {
-  const departTimeInDepartTimezone = applyOffset(departTime, departUtcOffset);
-  const arriveTimeInDepartTimezone = applyOffset(arriveTime, departUtcOffset);
-  const departTimeInArriveTimezone = applyOffset(departTime, arriveUtcOffset);
+  const departTimeInDepartTimezone = departTime?.format("HH:mm");
+  const arriveTimeInDepartTimezone = convertArrivalTime(
+    arriveTime,
+    departUtcOffset,
+    arriveUtcOffset
+  )?.format("HH:mm");
+  const departTimeInArriveTimezone = applyOffset(departTime, -departUtcOffset);
   const arriveTimeInArriveTimezone = applyOffset(arriveTime, arriveUtcOffset);
 
   return (

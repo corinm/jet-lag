@@ -8,3 +8,14 @@ export const applyOffset = (
     ?.clone()
     ?.utcOffset(utcOffset)
     .format("HH:mm");
+
+export const convertArrivalTime = (
+  arrivalTimeLocal: Moment | null | undefined,
+  departureOffset: number,
+  arrivalOffset: number
+): Moment | null | undefined => {
+  return arrivalTimeLocal
+    ?.clone()
+    .add(departureOffset / 60, "hours")
+    .subtract(arrivalOffset / 60, "hours");
+};
