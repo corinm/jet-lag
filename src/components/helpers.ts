@@ -1,10 +1,23 @@
 import { Moment } from "moment";
 
-export const applyOffset = (
-  time: Moment | null | undefined,
-  utcOffset: number
-): string | undefined =>
-  time
+export const convertArrivalTime = (
+  arrivalTimeLocal: Moment | null | undefined,
+  departureOffset: number,
+  arrivalOffset: number
+): Moment | null | undefined => {
+  return arrivalTimeLocal
     ?.clone()
-    ?.utcOffset(utcOffset)
-    .format("HH:mm");
+    .add(departureOffset / 60, "hours")
+    .subtract(arrivalOffset / 60, "hours");
+};
+
+export const convertDepartureTime = (
+  departureTimeLocal: Moment | null | undefined,
+  departureOffset: number,
+  arrivalOffset: number
+): Moment | null | undefined => {
+  return departureTimeLocal
+    ?.clone()
+    .subtract(departureOffset / 60, "hours")
+    .add(arrivalOffset / 60, "hours");
+};
