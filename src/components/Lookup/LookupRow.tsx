@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Moment } from "moment";
-import { Row, Col, Select, DatePicker, TimePicker } from "antd";
+import { Select, DatePicker, TimePicker } from "antd";
 
 import styles from "./Lookup.module.scss";
 
@@ -8,6 +8,7 @@ import { SetDate, SetTime, SetPlace, Place } from "../../types";
 import { useSearchLocation } from "../../hooks";
 import Loader from "./Loader";
 import JoiningText from "./JoiningText";
+import LookupRowMobileLayout from "./LookupRowMobileLayout";
 
 const Layout: React.FC<{
   text1: any;
@@ -83,7 +84,7 @@ const LookupRow: React.FC<{
   const onPlaceSelect = (placeId: string) => setPlace(findPlace(placeId));
 
   return (
-    <Layout
+    <LookupRowMobileLayout
       text1={<JoiningText text={label}></JoiningText>}
       select1={
         <Select
