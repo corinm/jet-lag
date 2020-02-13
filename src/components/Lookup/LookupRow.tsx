@@ -69,15 +69,21 @@ const LookupRow: React.FC<{
       select2={
         <DatePicker
           value={date}
-          onChange={date => setDate(date)}
+          onChange={(newDate: Moment | null, dateString: string) => {
+            newDate?.seconds(0).milliseconds(0);
+            setDate(newDate);
+          }}
           className={styles.fullWidth}
         />
       }
       text3={<JoiningText text="at"></JoiningText>}
       select3={
         <TimePicker
-          value={time}
-          onChange={setTime}
+          value={time || undefined}
+          onChange={(newTime: Moment) => {
+            newTime.seconds(0).milliseconds(0);
+            setTime(newTime);
+          }}
           format={timeFormat}
           className={styles.fullWidth}
         />
