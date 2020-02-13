@@ -23,7 +23,7 @@ export const convertDepartureTime = (
 };
 
 const combineDateWithTime = (
-  date: Moment | null | undefined,
+  date: Moment | null,
   time: Moment | null | undefined
 ): Moment | undefined => {
   return date
@@ -34,9 +34,9 @@ const combineDateWithTime = (
 };
 
 export const calculateFlightDuration = (
-  departDate: Moment | null | undefined,
+  departDate: Moment | null,
   departTime: Moment | null | undefined,
-  arriveDate: Moment | null | undefined,
+  arriveDate: Moment | null,
   arriveTime: Moment | null | undefined,
   departOffset: number | undefined,
   arriveOffset: number | undefined

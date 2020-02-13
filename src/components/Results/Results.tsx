@@ -12,10 +12,10 @@ import { calculateFlightDuration } from "../helpers";
 
 const Results: React.FC<{
   departPlace: Place;
-  departDate: Moment | null | undefined;
+  departDate: Moment | null;
   departTime: Moment | null | undefined;
   arrivePlace: Place;
-  arriveDate: Moment | null | undefined;
+  arriveDate: Moment | null;
   arriveTime: Moment | null | undefined;
 }> = ({
   departPlace,

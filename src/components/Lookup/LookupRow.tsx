@@ -12,7 +12,7 @@ import LookupRowMobileLayout from "./LookupRowMobileLayout";
 
 const LookupRow: React.FC<{
   label: string;
-  date: Moment | null | undefined;
+  date: Moment | null;
   setDate: SetDate;
   time: Moment | undefined;
   setTime: SetTime;

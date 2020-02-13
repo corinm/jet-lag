@@ -11,13 +11,13 @@ import { useCheckScreenWidth } from "../../hooks";
 const format = "HH:mm";
 
 const Lookup: React.FC<{
-  departDate: Moment | null | undefined;
+  departDate: Moment | null;
   setDepartDate: SetDate;
   departTime: Moment | undefined;
   setDepartTime: SetTime;
   departPlace: Place;
   setDepartPlace: SetPlace;
-  arriveDate: Moment | null | undefined;
+  arriveDate: Moment | null;
   setArriveDate: SetDate;
   arriveTime: Moment | undefined;
   setArriveTime: SetTime;
