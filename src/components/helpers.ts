@@ -1,43 +1,49 @@
 import moment, { Moment } from "moment";
 
 export const convertArrivalTime = (
-  arrivalTimeLocal: Moment | null | undefined,
+  arrivalTimeLocal: Moment | null,
   departureOffset: number,
   arrivalOffset: number
-): Moment | null | undefined => {
-  return arrivalTimeLocal
-    ?.clone()
-    .add(departureOffset / 60, "hours")
-    .subtract(arrivalOffset / 60, "hours");
+): Moment | null => {
+  return (
+    arrivalTimeLocal
+      ?.clone()
+      .add(departureOffset / 60, "hours")
+      .subtract(arrivalOffset / 60, "hours") || null
+  );
 };
 
 export const convertDepartureTime = (
-  departureTimeLocal: Moment | null | undefined,
+  departureTimeLocal: Moment | null,
   departureOffset: number,
   arrivalOffset: number
-): Moment | null | undefined => {
-  return departureTimeLocal
-    ?.clone()
-    .subtract(departureOffset / 60, "hours")
-    .add(arrivalOffset / 60, "hours");
+): Moment | null => {
+  return (
+    departureTimeLocal
+      ?.clone()
+      .subtract(departureOffset / 60, "hours")
+      .add(arrivalOffset / 60, "hours") || null
+  );
 };
 
 const combineDateWithTime = (
   date: Moment | null,
-  time: Moment | null | undefined
-): Moment | undefined => {
-  return date
-    ?.clone()
-    .hours(time?.hours() || 0)
-    .minutes(time?.minutes() || 0)
-    .seconds(time?.second() || 0);
+  time: Moment | null
+): Moment | null => {
+  return (
+    date
+      ?.clone()
+      .hours(time?.hours() || 0)
+      .minutes(time?.minutes() || 0)
+      .seconds(time?.second() || 0) || null
+  );
 };
 
 export const calculateFlightDuration = (
   departDate: Moment | null,
-  departTime: Moment | null | undefined,
+  departTime: Moment | null,
   arriveDate: Moment | null,
-  arriveTime: Moment | null | undefined,
+  arriveTime: Moment | null,
   departOffset: number | undefined,
   arriveOffset: number | undefined
 ): string => {
@@ -48,6 +54,10 @@ export const calculateFlightDuration = (
     departOffset || 0,
     arriveOffset || 0
   );
+
+  if (!depart) {
+    return "";
+  }
 
   const duration = moment.duration(arriveAdjusted?.diff(depart));
   const hours = duration.hours();

@@ -56,7 +56,7 @@ export const useSearchLocation = (
 export const useFetchTimezone = (
   place: Place,
   date: Moment | null,
-  time: Moment | null | undefined,
+  time: Moment | null,
   setTimezone: Function
 ) => {
   useEffect(() => {
