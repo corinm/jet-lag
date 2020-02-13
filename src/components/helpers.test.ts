@@ -89,31 +89,61 @@ describe("convertDepartureTime", () => {
 });
 
 describe("calculateFlightDuration", () => {
-  it("should return 10 hours and 30 minutes for a 10.5 hour flight", () => {
-    const departDate = moment("1970/01/01", "YYYY/MM/dd");
-    const departTime = moment("00:00", "HH:mm");
-    const arriveDate = moment("1970/01/01", "YYYY/MM/dd");
-    const arriveTime = moment("10:30", "HH:mm");
-    const duration = calculateFlightDuration(
-      departDate,
-      departTime,
-      arriveDate,
-      arriveTime
-    );
-    expect(duration).toEqual("10 hours and 30 minutes");
+  describe("same timezones", () => {
+    it("should return 10 hours and 30 minutes for a 10.5 hour flight", () => {
+      const departDate = moment("1970/01/01", "YYYY/MM/DD");
+      const departTime = moment("00:00", "HH:mm");
+      const arriveDate = moment("1970/01/01", "YYYY/MM/DD");
+      const arriveTime = moment("10:30", "HH:mm");
+      const departOffset = 0;
+      const arriveOffset = 0;
+      const duration = calculateFlightDuration(
+        departDate,
+        departTime,
+        arriveDate,
+        arriveTime,
+        departOffset,
+        arriveOffset
+      );
+      expect(duration).toEqual("10 hours and 30 minutes");
+    });
+
+    it("should return 45 minutes for a 0.75 hour flight", () => {
+      const departDate = moment("1970/01/01", "YYYY/MM/DD");
+      const departTime = moment("00:00", "HH:mm");
+      const arriveDate = moment("1970/01/01", "YYYY/MM/DD");
+      const arriveTime = moment("00:45", "HH:mm");
+      const departOffset = 0;
+      const arriveOffset = 0;
+      const duration = calculateFlightDuration(
+        departDate,
+        departTime,
+        arriveDate,
+        arriveTime,
+        departOffset,
+        arriveOffset
+      );
+      expect(duration).toEqual("45 minutes");
+    });
   });
 
-  it("should return 45 minutes for a 0.75 hour flight", () => {
-    const departDate = moment("1970/01/01", "YYYY/MM/dd");
-    const departTime = moment("00:00", "HH:mm");
-    const arriveDate = moment("1970/01/01", "YYYY/MM/dd");
-    const arriveTime = moment("00:45", "HH:mm");
-    const duration = calculateFlightDuration(
-      departDate,
-      departTime,
-      arriveDate,
-      arriveTime
-    );
-    expect(duration).toEqual("45 minutes");
+  describe("Different timezones: NY to London", () => {
+    it("should return 7 hours and 0 minutes for a 7 hour flight", () => {
+      const departDate = moment("2020-02-10T16:57:00.000Z");
+      const departTime = moment("2020-02-13T23:00:00.000Z");
+      const arriveDate = moment("2020-02-11T16:57:00.000Z");
+      const arriveTime = moment("2020-02-13T11:00:00.000Z");
+      const departOffset = -300; // 5 hours in minutes
+      const arriveOffset = 0;
+      const duration = calculateFlightDuration(
+        departDate,
+        departTime,
+        arriveDate,
+        arriveTime,
+        departOffset,
+        arriveOffset
+      );
+      expect(duration).toEqual("7 hours and 0 minutes");
+    });
   });
 });
