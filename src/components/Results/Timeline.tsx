@@ -11,10 +11,10 @@ import LandingIcon from "./LandingIcon";
 
 const Timeline: React.FC<{
   departPlace: Place;
-  departTime: Moment | null | undefined;
+  departTime: Moment | null;
   departUtcOffset: number;
   arrivePlace: Place;
-  arriveTime: Moment | null | undefined;
+  arriveTime: Moment | null;
   arriveUtcOffset: number;
   flightDuration: string;
 }> = ({

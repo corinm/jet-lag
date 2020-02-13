@@ -11,11 +11,11 @@ import Footer from "./components/Footer";
 
 const App: React.FC = () => {
   const [departPlace, setDepartPlace] = useState();
-  const [departDate, setDepartDate] = useState<Moment | null | undefined>();
-  const [departTime, setDepartTime] = useState<Moment | undefined>();
+  const [departDate, setDepartDate] = useState<Moment | null>(null);
+  const [departTime, setDepartTime] = useState<Moment | null>(null);
   const [arrivePlace, setArrivePlace] = useState();
-  const [arriveDate, setArriveDate] = useState<Moment | null | undefined>();
-  const [arriveTime, setArriveTime] = useState<Moment | undefined>();
+  const [arriveDate, setArriveDate] = useState<Moment | null>(null);
+  const [arriveTime, setArriveTime] = useState<Moment | null>(null);
 
   return (
     <Layout>
