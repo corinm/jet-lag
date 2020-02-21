@@ -5,6 +5,7 @@ import { Layout } from "antd";
 
 import styles from "./App.module.scss";
 
+import Emoji from "./components/Emoji";
 import Lookup from "./components/Lookup/Lookup";
 import Results from "./components/Results/Results";
 import Footer from "./components/Footer";
@@ -19,7 +20,12 @@ const App: React.FC = () => {
 
   return (
     <Layout>
-      <Layout.Header className={styles.header}>Jet lag</Layout.Header>
+      <Layout.Header className={styles.header}>
+        <span>Jet lag </span>
+        <Emoji emoji="🛩" label="Plane emoji" />{" "}
+        <Emoji emoji="🕰" label="Clock emoji" />{" "}
+        <Emoji emoji="😴" label="Sleep emoji" />
+      </Layout.Header>
       <Layout.Content className={styles.contentBorder}>
         <div className={styles.contentInner}>
           <Lookup
