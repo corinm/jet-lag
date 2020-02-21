@@ -57,6 +57,7 @@ const LookupRow: React.FC<{
           notFoundContent={isSearching ? <Loader /> : null}
           className={styles.fullWidth}
           allowClear
+          placeholder="City..."
         >
           {places.map((place: Place, i: number) => (
             <Select.Option key={i} value={place.id}>
