@@ -88,15 +88,10 @@ export const useCheckScreenWidth = (
   setIsMobile: Function
 ) => {
   useEffect(() => {
-    console.log("Effect");
-
     function onResize() {
-      console.log("Resize");
       if (!isMobile && window.innerWidth <= 640) {
-        console.log("Setting to mobile");
         setIsMobile(true);
       } else if (isMobile && window.innerWidth >= 641) {
-        console.log("Setting to larger");
         setIsMobile(false);
       }
     }
